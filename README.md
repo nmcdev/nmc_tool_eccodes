@@ -1,4 +1,4 @@
-# nmc_tool_eccodes
+# 调用ECMWF eccodes命令工具操作grib格式数据
 Call ECMWF eccodes tools to manipulate .grib format file with Python.
 
 Only Python 3 is supported.
