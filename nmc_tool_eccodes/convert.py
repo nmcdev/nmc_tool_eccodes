@@ -11,7 +11,6 @@ import os
 import pkg_resources
 import pathlib
 import subprocess
-from nmc_tool_eccodes import config
 
 
 def grib_to_netcdf(filenames, out_dir=None, verbose=False, check_exist=True):
@@ -49,7 +48,7 @@ def grib_to_netcdf(filenames, out_dir=None, verbose=False, check_exist=True):
         out_files.append(out_file)
         commands = ['grib_to_netcdf', '-o', str(out_file), str(file)]
         process = subprocess.Popen(
-            commands, env=config.grib_env, stdout=subprocess.PIPE,
+            commands, stdout=subprocess.PIPE,
             stderr=subprocess.PIPE, shell=True)
         out, err = process.communicate()
         if verbose:
@@ -167,7 +166,7 @@ def grib_extract_to_netcdf(filenames, short_name, level=None,
             condition = condition+',level='+str(level)
         command = ['grib_copy', '-w', condition, str(file), str(out_file1)]
         process = subprocess.Popen(
-            command, env=config.grib_env, stdout=subprocess.PIPE,
+            command, stdout=subprocess.PIPE,
             stderr=subprocess.PIPE, shell=True)
         out, err = process.communicate()
         if verbose:
@@ -176,7 +175,7 @@ def grib_extract_to_netcdf(filenames, short_name, level=None,
         # convert netcdf file
         commands = ['grib_to_netcdf', '-o', str(out_file2), str(out_file1)]
         process = subprocess.Popen(
-            commands, env=config.grib_env, stdout=subprocess.PIPE,
+            commands, stdout=subprocess.PIPE,
             stderr=subprocess.PIPE, shell=True)
         out, err = process.communicate()
         if verbose:
@@ -216,7 +215,7 @@ def ecmf_ensemble_grib_split(filenames, out_dir=None, verbose=False):
             'grib_copy', '-B "level:l"',
             '"' + str(file) + '"', '"' + str(outfile) + '"']
         process = subprocess.Popen(
-            commands, env=config.grib_env, stdout=subprocess.PIPE,
+            commands, stdout=subprocess.PIPE,
             stderr=subprocess.PIPE, shell=True)
         out, err = process.communicate()
         if verbose:
